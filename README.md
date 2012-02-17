@@ -15,4 +15,4 @@ This is an extension and some templates to dynamically generate a robots.txt and
 
 - pop:content.menu_link (optional)
 
-    I use this field for sections that just point to an external URL e.g. you might host a blog elsewhere and have added this as a section in your content just to display this in a menu (well I have!) anyway - we wouldn't want to include this in a sitemap. Field type: Checkbox
+    I use this field for sections that just point to an external URL e.g. you might host a blog elsewhere and have added this as a section in your content just to display this in a menu (well I have!) - anyway we wouldn't want to include this in a sitemap. Field type: Checkbox
