@@ -2,4 +2,4 @@
 =============================
 A collection of WebPop extensions, scripts, templates etc.. What's [WebPop](http://www.webpop.com/ "Cloud CMS for Designers")?
 
-**The official WebPop repos are at: https://github.com/webpop*
+**The official WebPop repos are at: https://github.com/webpop

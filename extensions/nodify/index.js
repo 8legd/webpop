@@ -1,0 +1,12 @@
+/**
+ * Make WebPop globals look like their node.js counter parts
+ * add to this as the code base needs it...
+ */
+
+console = {
+  log: function(info) {
+    log(info);
+  }
+}
+  
+request.method = request.request_method;
