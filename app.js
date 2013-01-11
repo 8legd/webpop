@@ -18,6 +18,8 @@ app.configure(function(){
   // make sure static files take precedence as per WebPop
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(app.router);
+
+
 });
 
 app.configure('development', function(){
