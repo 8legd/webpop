@@ -1,5 +1,11 @@
-8legd WebPop Work In Progress
+Resources for WebPop projects
 =============================
-A collection of WebPop extensions, scripts, templates etc.. What's [WebPop](http://www.webpop.com/ "Cloud CMS for Designers")?
 
-**The official WebPop repos are at: https://github.com/webpop
+What's [WebPop](http://www.webpop.com/ "Cloud CMS for Designers")?
+
+*The official WebPop repos are at: https://github.com/webpop*
+
+Structure of this repo.
+=======================
+
+TODO explain the structure!
