@@ -3,7 +3,7 @@
  */
 webpop = true;
 
-CONFIG = require('config');
+CONFIG = require('config').options;
 
 // nodify our WebPop app
 require('nodify');

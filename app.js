@@ -1,7 +1,7 @@
 /**
  * WebPop test app for local testing in node.js
  */
-CONFIG = require('./config');
+CONFIG = require('./config').options;
 
 var express = require('express');
 var http = require('http');
