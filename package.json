@@ -5,7 +5,11 @@
     "start": "app.js"
   },
   "dependencies": {
-    "express": "3.0.x"
+      "express": "3.0.x",
+      "cubby": "*",
+      "mysql": "*",
+      "mysql-cubby": "*",
+      "oauth": "*"
   },
   "engines": {
     "node": "v0.8.x"

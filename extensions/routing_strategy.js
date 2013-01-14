@@ -4,7 +4,7 @@
  */
 exports.basic = function(req,res) {
     try {
-        var route = require('.' + req.path + '/index');
+        var route = require('./routes' + req.path + '/index');
         if(route[req.method]) {
             route[req.method](req,res);
         } else {

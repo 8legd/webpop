@@ -1,8 +1,12 @@
 # Dev env #
-###################
+###########
 node_modules/
 .idea/
+temp/
 
+# Private!  #
+#############
+#extensions/config.js
 
 # OS generated files #
 ######################
@@ -14,4 +18,3 @@ node_modules/
 Icon?
 ehthumbs.db
 Thumbs.db
-

@@ -3,18 +3,18 @@
  */
 webpop = true;
 
-// nodify our WebPop app
-require('./nodify/index');
+CONFIG = require('config');
 
-var router = require('./routes/strategy').create({
-    // Add any libraries used in the routes here...
-});
+// nodify our WebPop app
+require('nodify');
+
+var routing_strategy = require('routing_strategy');
 
 /**
  * Basic routing strategy that works in node.js and WebPop
  */
 exports.get = exports.post = {
     "*": function() {
-        strategy.basic(request,response);
+        routing_strategy.basic(request,response);
     }
 };

@@ -1,5 +1,5 @@
-// all extensions used by templates go in here...
-// if it gets to big move it to a sub-dir with an ext- prefix
+// standard extensions used by templates go in here...
+// if a method gets to big move it to a sub-dir with an ext- prefix
 
 /**
  * Use this to simply return the specified options.value - handy for conditional comments etc.
