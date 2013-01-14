@@ -17,4 +17,8 @@ if (!config.options) {
     // etc...
 }
 
+// You probably want to override some stuff for testing too!
+config.options.dropbox.oauth_callback = "http://127.0.0.1:3000/webpop/dropbox/access";
+
+
 exports.options = config.options;
