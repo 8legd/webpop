@@ -23,7 +23,6 @@ What's [WebPop](http://www.webpop.com/ "Cloud CMS for Designers")?
 Structure of this repo.
 =======================
 
-TODO explain the structure once we have decided on it!
-
+TODO explain the structure!
 
 >>>>>>> tidy up
