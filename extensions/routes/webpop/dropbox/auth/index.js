@@ -13,7 +13,8 @@ var dropboxOAuth = new OAuth('https://api.dropbox.com/1/oauth/request_token',
 exports.GET = function(req,res) {
     dropboxOAuth.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results){
         if(error) {
-            res.send(500); // :(
+            // :( TODO error
+            res.send(500);
         }
         else {
             req.session.req_oauth_token = oauth_token;

@@ -24,5 +24,6 @@ exports.GET = function(req,res) {
         });
     } else {
         // :( TODO error
+        res.send(500);
     }
 }
