@@ -1,11 +1,12 @@
 # Dev env #
 ###########
-node_modules/
 .idea/
 temp/
+node_modules/*
+!node_modules/storage
 
-# Private!  #
-#############
+# Private #
+###########
 extensions/config.js
 
 # OS generated files #

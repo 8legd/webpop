@@ -1,27 +1,36 @@
-var OAuth= require('oauth').OAuth;
-
-//requestUrl, accessUrl, consumerKey, consumerSecret, version, authorize_callback, signatureMethod, nonceSize, customHeaders) {
-var dropboxOAuth = new OAuth('https://api.dropbox.com/1/oauth/request_token',
-    'https://api.dropbox.com/1/oauth/access_token',
-    CONFIG.dropbox.app_key,
-    CONFIG.dropbox.app_secret,
-    '1.0',
-    CONFIG.dropbox.oauth_callback,
-    'HMAC-SHA1'
-);
+var dropbox = require('../../../../web_apis/dropbox');
 
 exports.GET = function(req,res) {
-    dropboxOAuth.getOAuthRequestToken(function(error, oauth_token, oauth_token_secret, results){
-        if(error) {
-            // :( TODO error
-            res.send(500);
-        }
-        else {
-            req.session.req_oauth_token = oauth_token;
-            req.session.req_oauth_token_secret = oauth_token_secret;
-            res.redirect('https://www.dropbox.com/1/oauth/authorize?oauth_token=' +
-                oauth_token + '&oauth_callback=' + encodeURIComponent(CONFIG.dropbox.oauth_callback));
-        }
-    });
-}
+    if (req.query.oauth_token == req.session.req_oauth_token) {
+        // :)
+        req.session.req_oauth_token = null;
+        var req_oauth_token_secret = req.session.req_oauth_token_secret;
+        req.session.req_oauth_token_secret = null;
 
+        req.session.req_oauth_token_ts = new Date().toJSON();
+
+        var req_oauth_token_ts_json = req.session.req_oauth_token_ts;
+        var req_oauth_token_ts = new Date(req_oauth_token_ts_json);
+        // TODO check this is not  stale
+
+        //Dropbox ID
+        var uid = req.query.uid;
+        if (req.query.not_approved && req.query.not_approved == 'true') {
+            // to not approved flow
+        } else {
+            var service = dropbox.create({
+                oauth_request_token: req.query.oauth_token,
+                oauth_request_token_secret: req_oauth_token_secret
+            });
+            // callback(error, oauth_access_token, oauth_access_token_secret, results)
+            service.requestAccessToken(function(error, oauth_access_token, oauth_access_token_secret, results) {
+                //TODO store the access token
+                console.log('TODO store the access token');
+            });
+        }
+    } else {
+        // :( TODO error
+        res.send(500);
+    }
+
+}
