@@ -444,6 +444,7 @@ exports.OAuth.prototype.getOAuthAccessToken= function(oauth_token, oauth_token_s
 }
 
 // Deprecated
+/*
 exports.OAuth.prototype.getProtectedResource= function(url, method, oauth_token, oauth_token_secret, callback) {
   this._performSecureRequest( oauth_token, oauth_token_secret, method, url, null, "", null, callback );
 }
