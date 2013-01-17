@@ -5,6 +5,17 @@ var config = require('./extensions/config');
 if (!config.options) {
     config.options = {};
 
+    // Datastore
+    options.data_store = {
+        impl: "cubby", // required: cubby | mysql-cubby
+        host: 'mysql', // required for mysql connection if using mysql-cubby
+        user: 'root', // required for mysql connection if using mysql-cubby
+        password: 'password', // required for mysql connection if using mysql-cubby
+        database: 'webpop', // required for mysql connection if using mysql-cubby
+        table: "storage", // optional table name if using mysql-cubby (defaults to `cubby`)
+        name: "test" // optional record PK if using mysql-cubby (defaults to `default`)
+    }
+
     // Dropbox
     config.options.dropbox = {
         app_key: "Your Dropbox App key",

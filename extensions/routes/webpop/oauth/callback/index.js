@@ -1,9 +1,12 @@
 var dropbox = require('../../../../web_apis/dropbox');
+var data_store = require('../../../../data_store/index');
+var security = require('../../../../security/index');
 
 exports.GET = function(req,res) {
+  console.log(req.query.oauth_token);
+  console.log(req.session.req_oauth_token);
     if (req.query.oauth_token == req.session.req_oauth_token) {
-        // :)
-        req.session.req_oauth_token = null;
+         req.session.req_oauth_token = null;
         var req_oauth_token_secret = req.session.req_oauth_token_secret;
         req.session.req_oauth_token_secret = null;
 
@@ -24,13 +27,22 @@ exports.GET = function(req,res) {
             });
             // callback(error, oauth_access_token, oauth_access_token_secret, results)
             service.requestAccessToken(function(error, oauth_access_token, oauth_access_token_secret, results) {
-                //TODO store the access token
-                console.log('TODO store the access token');
+                var user_data = {
+                    uid: uid,
+                    oauth_access_token: oauth_access_token,
+                    oauth_access_token_secret: oauth_access_token_secret
+                };
+                var encrypted_data = security.encrypt(user_data);
+              console.log(JSON.stringify(data_store));
+                data_store.put('user',encrypted_data,function() {
+                    //TODO redirect
+                    res.send(':)');
+                });
             });
         }
     } else {
         // :( TODO error
-        res.send(500);
+      res.send(500);
     }
 
 }

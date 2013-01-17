@@ -1,3 +1,7 @@
-// TODO wrap around WebPops http library
+// TODO wrap around WebPop's http library
 var http = require('http');
-exports.request = http.request;
+
+exports.request = function(options) {
+  options.protocol = 'https';
+  return http.request(options);
+};

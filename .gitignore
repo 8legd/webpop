@@ -3,7 +3,7 @@
 .idea/
 temp/
 node_modules/*
-!node_modules/storage
+cubby.json
 
 # Private #
 ###########
@@ -19,3 +19,4 @@ extensions/config.js
 Icon?
 ehthumbs.db
 Thumbs.db
+*.log

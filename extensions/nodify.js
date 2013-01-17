@@ -1,34 +1,50 @@
 /**
- * Make WebPop globals look like their node.js counter parts and add some missing node.js globals e.g. console
+ * Make WebPop globals look like their node.js counter parts,  add some missing node.js globals e.g. console
+ * and modify http library to act like nodes
  *
  * add to this as the code base needs it...
  */
-
 console = {
   log: function(info) {
     log(info);
   }
 }
   
-request.method = request.request_method;
+if (!request.method) {
+  request.method = request.request_method;
+}
+if (!request.query && request.request_method == 'GET') {
+  request.query = request.params;
+}
+if (!response.redirect) {
+  response.redirect = function(url,permanent) {
+    if (permanent) {
+      this.send("", {"Location" : url}, 301 );
+    } else {
+      this.send("", {"Location" : url}, 302 );
+    }
+  }
+}
 
 //add node style methods to http...
 var http = require('http');
 
-// defensive check that this doesn't exist!!!
+// defensive check that this doesn't exist...you will probably see more of these!!! 
 if (!http.original_request_func) {
     http.original_request_func = http.request;
-} else {
-    //TODO error
-}
+} 
+
 http.request = function(options) {
+    if (!options.protocol) {
+      options.protocol = 'http';
+    }
     return {
-        options: options,
-        events: { error: [], response: []},
+        request_options: options,
+        events: { response: [] },
         on: function(event,callback) {
-            // for now just `emit` response and error
+            // for now just `emit` response
             switch(event) {
-                case 'error','response':
+                case 'response':
                     this.events[event].push(callback);
                     break;
                 default:
@@ -36,72 +52,49 @@ http.request = function(options) {
             }
         },
         write: function(body) {
-
+          this.request_options.body = body;
         },
-        end: function() {
-            original_request_func(options);
-            // emit events
-
-            // error callback( err )
-        }
+        end: function() {          
+          var webpop_options = {};
+          webpop_options.url = this.request_options.protocol + '://' + this.request_options.host + 
+                               (this.request_options.port ? ':' + this.request_options.port : '') +
+                               this.request_options.path;
+          webpop_options.type = this.request_options.method;       
+          webpop_options.headers = this.request_options.headers;
+          webpop_options.body = this.request_options.body ? this.request_options.body : '';
+ 
+          var response = http.original_request_func(webpop_options);
+          if (!response.setEncoding) {
+            response.setEncoding = function(enc){console.log('setting enc')};
+          }
+          if (!response.statusCode) {
+            response.statusCode = response.status;
+          }      
+          if (!response.on) {
+            response.events = { data: [] };
+            response.on = function(event,callback) {
+              // for now just `emit` data and fire it on end
+              switch(event) {
+                  case 'data':
+                      this.events.data.push(callback);
+                      break;
+                  case 'end':
+                      for (var i=0,z=this.events.data.length; i<z; i++) {
+                       this.events.data[i](this.body);
+                      } 
+                      callback();
+                      break;
+                  default:
+                  //that's all for now!
+              };   
+            }
+          }
+          // emit the reponse event
+          for (var i=0,z=this.events.response.length; i<z; i++) {
+            this.events.response[i](response);
+          }   
+          
+          return response;
+      }      
     }
 }
-
-
-
-/**
- * WebPop
- *
-
- REQUEST
- The http module also exports a more general .request(options) method.
-
- The options for request are:
-
- url: The url of the request
- type: GET, POST, PUT, DELETE, HEAD or OPTIONS
- data: an object that will be used as the query string in GET requests or as the post body for any other request type.
- headers: an object with HTTP headers
- body: a raw post body - make sure to set the "Content-Type" header as well.
- username: username for HTTP basic auth.
- password: password for HTTP basic auth
-
- Where GET and POST will return either a string, the result of parsing a JSON document or null when called, request returns a response object. The response object exposes the following properties:
-
- status: HTTP status code
- body: The response body
- headers: An object representing the response headers
-
-*/
-
-
-/**
- * node oauth usage
- *
-
- request.on('response', function (response) {
-      response.setEncoding('utf8');
-      response.on('data', function (chunk) {
-        data+=chunk;
-      });
-      response.on('end', function () {
-        passBackControl( response );
-      });
-
-
-     request.on("error", function(err) {
-      callbackCalled= true;
-      callback( err )
-    });
-
-
-       request.write(post_body);
-
-
-
-    request.end();
-
-
-
-
- */

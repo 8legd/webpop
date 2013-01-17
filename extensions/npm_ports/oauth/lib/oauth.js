@@ -444,12 +444,12 @@ exports.OAuth.prototype.getOAuthAccessToken= function(oauth_token, oauth_token_s
 }
 
 // Deprecated
-/*
+
 exports.OAuth.prototype.getProtectedResource= function(url, method, oauth_token, oauth_token_secret, callback) {
   this._performSecureRequest( oauth_token, oauth_token_secret, method, url, null, "", null, callback );
 }
 
-exports.OAuth.prototype.delete= function(url, oauth_token, oauth_token_secret, callback) {
+exports.OAuth.prototype.del = function(url, oauth_token, oauth_token_secret, callback) {
   return this._performSecureRequest( oauth_token, oauth_token_secret, "DELETE", url, null, "", null, callback );
 }
 
