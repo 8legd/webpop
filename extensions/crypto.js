@@ -35,7 +35,7 @@ exports.createHmac = exports.Hmac = function(hmac, key) {
 }
 
 //var hash = crypto.createHash('md5').update(new Buffer(requestBody).toString('binary')).digest('hex');
-exports.createHash function(hash, key) {
+exports.createHash = function(hash, key) {
     var result = {};
     switch(hash) {
         case 'md5':
