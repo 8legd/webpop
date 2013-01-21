@@ -4,7 +4,7 @@ var security = require('../../../../security/index');
 
 exports.GET = function(req,res) {
     data_store.get('user',function(encrypted_text,error) {
-        var decrypted_text = security.decrypt(encrypted_text);
+        var decrypted_text = security.decrypt(encrypted_text,CONFIG.security.key);
         var user_data = JSON.parse(decrypted_text);
         var service = dropbox.create({
             oauth_access_token: user_data.oauth_access_token,

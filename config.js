@@ -14,7 +14,12 @@ if (!config.options) {
         database: 'webpop', // required for mysql connection if using mysql-cubby
         table: "storage", // optional table name if using mysql-cubby (defaults to `cubby`)
         name: "test" // optional record PK if using mysql-cubby (defaults to `default`)
-    }
+    };
+
+    // Security
+    options.security = {
+        key: "very secret key used for encryption!"
+    };
 
     // Dropbox
     config.options.dropbox = {

@@ -5,7 +5,7 @@ var security = require('../../../../security/index');
 exports.GET = function(req,res) {
   console.log(req.query.oauth_token);
   console.log(req.session.req_oauth_token);
-    if (req.query.oauth_token != req.session.req_oauth_token) {
+    if (req.query.oauth_token == req.session.req_oauth_token) {
          req.session.req_oauth_token = null;
         var req_oauth_token_secret = req.session.req_oauth_token_secret;
         req.session.req_oauth_token_secret = null;
@@ -35,11 +35,7 @@ exports.GET = function(req,res) {
 
                 var plain_text = JSON.stringify(user_data);
 
-                var encrypted_text = security.encrypt(plain_text);
-
-                var decrypted_text = security.decrypt(encrypted_text);
-
-
+                var encrypted_text = security.encrypt(plain_text,CONFIG.security.key);
 
                 data_store.put('user',encrypted_text,function() {
                     //TODO redirect
