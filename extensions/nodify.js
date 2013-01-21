@@ -1,6 +1,6 @@
 /**
  * Make WebPop globals look like their node.js counter parts,  add some missing node.js globals e.g. console
- * and modify http library to act like nodes
+ * and modify http library to act like a node express app
  *
  * add to this as the code base needs it...
  */

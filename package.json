@@ -9,7 +9,8 @@
       "cubby": "*",
       "mysql": "*",
       "mysql-cubby": "*",
-      "oauth": "*"
+      "oauth": "*",
+      "bcrypt": "*"
   },
   "engines": {
     "node": "v0.8.x"
